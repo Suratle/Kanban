@@ -25,7 +25,6 @@ const createCard = (title, lane = "todo", id = Date.now().toString()) => {
 const saveCardToStorage = (card) => {
   let cards = JSON.parse(localStorage.getItem("kanbanCards")) || [];
 
-  // ตรวจว่ามีอยู่แล้วไหม
   const existingIndex = cards.findIndex((c) => c.id === card.id);
   if (existingIndex !== -1) {
     cards[existingIndex] = card;
@@ -94,10 +93,8 @@ const addEventListenersToSwimlanes = () => {
       const title = draggedCard.innerText;
       const laneName = swimlane.classList[1];
 
-      // ลบจากเดิม
       draggedCard.parentNode.removeChild(draggedCard);
 
-      // ถ้าโยนไป hold = ลบทิ้ง
       if (laneName === "delete") {
         removeCardFromStorage(cardId);
         return;
@@ -109,7 +106,6 @@ const addEventListenersToSwimlanes = () => {
   });
 };
 
-// Create card
 document.getElementById("add-card-btn").addEventListener("click", () => {
   const input = document.getElementById("card-title-input");
   const title = input.value.trim();
@@ -129,8 +125,8 @@ document.getElementById("add-card-btn").addEventListener("click", () => {
   const input = document.getElementById("card-title-input");
   const title = input.value.trim();
   if (title !== "") {
-    createCard(title); // เพิ่มที่ To Do
-    saveAllCardsToStorage(); // บันทึกตำแหน่ง
+    createCard(title); 
+    saveAllCardsToStorage(); 
     input.value = "";
   }
 });
