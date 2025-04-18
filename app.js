@@ -50,7 +50,6 @@ const loadCardsFromStorage = () => {
 
 loadCardsFromStorage();
 
-// ---- USER NAME MANAGEMENT ---- //
 const getUserName = () => {
   let name = localStorage.getItem("kanbanUserName");
   if (!name) {
@@ -65,7 +64,7 @@ const getUserName = () => {
 const updateGreeting = () => {
   const greetingSpan = document.getElementById("greeting");
   const name = localStorage.getItem("kanbanUserName") || "Guest";
-  greetingSpan.textContent = `Hello, ${name}!`;
+  greetingSpan.textContent = `Hello ${name}!`;
 };
 
 document.getElementById("change-name-btn").addEventListener("click", () => {
