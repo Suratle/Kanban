@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- FAVI ICON -->
+    <link rel="shortcut icon" href="KanBan.png" type="image/x-icon" />
+    <title>Kanban board</title>
+  </head>
+  <body>
+    <!-- USERNAME -->
+    <div id="user-info">
+      <span id="greeting"></span>
+      <button id="change-name-btn">Change Name</button>
+    </div>
+    <main id="board">
+      <section class="swimlane todo"><h1>To Do</h1></section>
+      <section class="swimlane doing"><h1>Doing</h1></section>
+      <section class="swimlane done"><h1>Done</h1></section>
+      <section class="swimlane delete"><h1>Delete</h1></section>
+      <div id="card-creator">
+        <input
+          type="text"
+          id="card-title-input"
+          placeholder="Enter card title"
+        />
+        <button id="add-card-btn">Add</button>
+      </div>
+      <!-- Link JAVASCRIPT -->
+      <script src="app.js"></script>
+    </main>
+  </body>
+</html>

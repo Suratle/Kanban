@@ -1,0 +1,76 @@
+/* FONT */
+@import url("https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap");
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  font-family: "Special Gothic Condensed One", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: antiquewhite;
+}
+#user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: #fff8dc;
+  border-bottom: 1px solid #ccc;
+}
+
+#greeting {
+  font-weight: bold;
+}
+
+#board {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding: 48px;
+
+  column-gap: 24px;
+}
+.swimlane {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  border-radius: 8px;
+  flex-shrink: 0;
+  flex-basis: 1;
+  flex-grow: 1;
+
+  h1 {
+    text-align: center;
+  }
+}
+.card {
+  padding: 16px;
+  text-align: center;
+  color: antiquewhite;
+
+  .todo & {
+    color: black;
+    background-color: yellow;
+  }
+  .doing & {
+    background-color: green;
+  }
+  .done & {
+    background-color: black;
+  }
+  .delete & {
+    background-color: red;
+  }
+}
+#card-creator {
+  padding: 16px;
+}
+#card-title-input {
+  padding: 8px;
+}
+#add-card-btn {
+  padding: 8px 16px;
+  cursor: pointer;
+}
