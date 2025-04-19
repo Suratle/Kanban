@@ -1,3 +1,46 @@
+window.addEventListener("DOMContentLoaded", () => {
+  const savedUser = localStorage.getItem("currentUser");
+  if (savedUser && getUsers()[savedUser]) {
+    currentUser = savedUser;
+    document.getElementById("login-container").style.display = "none";
+    document.getElementById("board").style.display = "flex";
+    loadUserCards();
+  } else {
+    document.getElementById("login-container").style.display = "block";
+    document.getElementById("board").style.display = "none";
+  }
+});
+
+let currentUser = null;
+
+const getUsers = () => JSON.parse(localStorage.getItem("users") || "{}");
+const saveUsers = (users) =>
+  localStorage.setItem("users", JSON.stringify(users));
+
+const login = () => {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!username || !password) return alert("Enter username and password");
+
+  const users = getUsers();
+
+  if (!users[username]) {
+    users[username] = { password, cards: [] };
+  } else if (users[username].password !== password) {
+    return alert("Wrong password");
+  }
+
+  currentUser = username;
+  localStorage.setItem("currentUser", currentUser);
+  saveUsers(users);
+
+  document.getElementById("login-container").style.display = "none";
+  document.getElementById("board").style.display = "flex";
+  loadUserCards();
+};
+document.getElementById("login-btn").addEventListener("click", login);
+
 const attachCard = (card) => {
   const todoLane = document.querySelector(".swimlane.todo");
   todoLane.appendChild(card);
@@ -20,6 +63,29 @@ const createCard = (title, lane = "todo", id = Date.now().toString()) => {
 
   const targetLane = document.querySelector(`.swimlane.${lane}`);
   targetLane.appendChild(cardElement);
+};
+
+const saveUserCards = () => {
+  const users = getUsers();
+  const allCards = [];
+
+  document.querySelectorAll(".swimlane").forEach((lane) => {
+    const laneName = lane.classList[1];
+    lane.querySelectorAll(".card").forEach((card) => {
+      allCards.push({ id: card.id, title: card.innerText, lane: laneName });
+    });
+  });
+
+  users[currentUser].cards = allCards;
+  saveUsers(users);
+};
+
+const loadUserCards = () => {
+  const users = getUsers();
+  const userCards = users[currentUser]?.cards || [];
+  userCards.forEach((card) => {
+    createCard(card.title, card.lane, card.id);
+  });
 };
 
 const saveCardToStorage = (card) => {
@@ -94,6 +160,7 @@ const addEventListenersToSwimlanes = () => {
 
       draggedCard.parentNode.removeChild(draggedCard);
 
+      // delete Card
       if (laneName === "delete") {
         removeCardFromStorage(cardId);
         return;
@@ -105,6 +172,7 @@ const addEventListenersToSwimlanes = () => {
   });
 };
 
+// Create card
 document.getElementById("add-card-btn").addEventListener("click", () => {
   const input = document.getElementById("card-title-input");
   const title = input.value.trim();
@@ -124,8 +192,8 @@ document.getElementById("add-card-btn").addEventListener("click", () => {
   const input = document.getElementById("card-title-input");
   const title = input.value.trim();
   if (title !== "") {
-    createCard(title); 
-    saveAllCardsToStorage(); 
+    createCard(title); // เพิ่มที่ To Do
+    saveAllCardsToStorage(); // บันทึกตำแหน่ง
     input.value = "";
   }
 });
