@@ -10,11 +10,16 @@
     <title>Kanban board</title>
   </head>
   <body>
-    <!-- USERNAME -->
+    <div id="login-container">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="login-btn">Login / Register</button>
+    </div>
     <div id="user-info">
       <span id="greeting"></span>
       <button id="change-name-btn">Change Name</button>
     </div>
+
     <main id="board">
       <section class="swimlane todo"><h1>To Do</h1></section>
       <section class="swimlane doing"><h1>Doing</h1></section>
